@@ -4,6 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
   -- nvim tree
+  --[[
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
@@ -62,8 +63,10 @@ return {
       }
     end,
   },
+  --]]
   ------------------------
   -- bufferline
+  --[[
   {
     'akinsho/bufferline.nvim',
     version = '*',
@@ -80,4 +83,5 @@ return {
       }
     end,
   },
+  --]]
 }

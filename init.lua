@@ -7,6 +7,8 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = false
 
+vim.opt.tabstop = 4
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -143,16 +145,28 @@ vim.opt.rtp:prepend(lazypath)
 --
 
 -- disable netrw at the very start of your init.lua
+--[[
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+]]
+--
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 vim.cmd 'set spellfile=~/.config/nvim/spell/en.utf-8.add'
 vim.opt.spell = true
-vim.api.nvim_set_keymap('n', '<C-h>', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
+-- nvimtree
+--vim.api.nvim_set_keymap('n', '<C-h>', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
+vim.keymap.set('n', '<C-h>', ':Ex<cr>')
 
 vim.opt.showtabline = 2
+
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
 
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
@@ -471,7 +485,7 @@ require('lazy').setup({
         clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -788,6 +802,6 @@ require('lazy').setup({
   },
 })
 
-require('bufferline').setup()
+--require('bufferline').setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
