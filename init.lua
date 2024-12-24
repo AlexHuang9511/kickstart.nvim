@@ -7,6 +7,34 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+vim.g.netrw_altv = 1
+vim.g.netrw_liststyle = 3
+vim.opt.pumheight = 10
+vim.opt.laststatus = 2
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+vim.keymap.set('i', "'", "''<left>")
+vim.keymap.set('i', '"', '""<left>')
+vim.keymap.set('i', '(', '()<left>')
+vim.keymap.set('i', '{', '{}<left>')
+vim.keymap.set('i', '[', '[]<left>')
+
+vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//g<left><left>')
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv'")
+vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv'")
+
+vim.opt.showtabline = 2
+
+vim.cmd 'set wildmenu'
+
+vim.cmd ':autocmd BufNewFile *.c 0r ~/snippets/c'
+
 vim.opt.tabstop = 4
 
 -- [[ Setting options ]]
@@ -84,7 +112,8 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader><Tab>', '<cmd>:bn<cr>', { desc = 'next buffer' })
+vim.keymap.set('n', '<Tab>', '<cmd>:bn<cr>', { desc = 'next buffer [Tab]' })
+vim.keymap.set('n', '<S-Tab>', '<cmd>:bp<cr>', { desc = 'previous buffer [Tab]' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -169,7 +198,7 @@ vim.cmd 'set spellfile=~/.config/nvim/spell/en.utf-8.add'
 vim.opt.spell = true
 -- nvimtree
 --vim.api.nvim_set_keymap('n', '<C-h>', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
-vim.keymap.set('n', '<C-h>', ':Ex<cr>')
+vim.keymap.set('n', '<C-h>', ':25Lex<cr>')
 
 vim.opt.showtabline = 2
 
@@ -419,6 +448,8 @@ require('lazy').setup({
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -496,8 +527,9 @@ require('lazy').setup({
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      --
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -509,6 +541,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+
         clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -609,6 +642,7 @@ require('lazy').setup({
     },
   },
 
+  --[[
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -696,6 +730,8 @@ require('lazy').setup({
     end,
   },
 
+  --]]
+
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -734,7 +770,7 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
-      require('mini.starter').setup()
+      --require('mini.starter').setup()
       require('mini.tabline').setup()
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
