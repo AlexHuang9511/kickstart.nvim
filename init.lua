@@ -7,10 +7,14 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
+--[[
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 4
 vim.g.netrw_altv = 1
 vim.g.netrw_liststyle = 3
+]]
+--
+
 vim.opt.pumheight = 10
 vim.opt.laststatus = 2
 vim.opt.splitbelow = true
@@ -25,7 +29,7 @@ vim.keymap.set('i', '(', '()<left>')
 vim.keymap.set('i', '{', '{}<left>')
 vim.keymap.set('i', '[', '[]<left>')
 
-vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//g<left><left>')
+vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[r]eplace highlighted' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv'")
 vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv'")
 
@@ -198,7 +202,7 @@ vim.cmd 'set spellfile=~/.config/nvim/spell/en.utf-8.add'
 vim.opt.spell = true
 -- nvimtree
 --vim.api.nvim_set_keymap('n', '<C-h>', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
-vim.keymap.set('n', '<C-h>', ':25Lex<cr>')
+vim.keymap.set('n', '<C-h>', '<cmd>lua require("oil").toggle_float(".")<CR>')
 
 vim.opt.showtabline = 2
 
@@ -864,7 +868,3 @@ require('lazy').setup({
     },
   },
 })
-
---require('bufferline').setup()
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
