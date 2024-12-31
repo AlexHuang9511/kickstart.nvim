@@ -23,11 +23,14 @@ vim.opt.splitright = true
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
+--[[
 vim.keymap.set('i', "'", "''<left>")
 vim.keymap.set('i', '"', '""<left>')
 vim.keymap.set('i', '(', '()<left>')
 vim.keymap.set('i', '{', '{}<left>')
 vim.keymap.set('i', '[', '[]<left>')
+]]
+--
 
 vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[r]eplace highlighted' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv'")
