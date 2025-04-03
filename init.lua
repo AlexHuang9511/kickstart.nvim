@@ -29,7 +29,7 @@ vim.keymap.set('i', '[', '[]<left>')
 ]]
 --
 
-vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[r]eplace highlighted' })
+vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//gc<left><left><left>', { desc = '[r]eplace highlighted' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv'")
 vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv'")
 
@@ -415,7 +415,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
+      'saghen/blink.cmp',
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
@@ -454,6 +454,7 @@ require('lazy').setup({
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
+
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -790,9 +791,9 @@ require('lazy').setup({
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      --statusline.section_location = function()
+      --  return '%2l:%-2v'
+      --end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
