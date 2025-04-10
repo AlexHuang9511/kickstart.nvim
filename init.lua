@@ -38,6 +38,7 @@ vim.keymap.set('n', '<leader>l', ':!latexmk -pdf && latexmk -c<CR><CR>', { desc 
 vim.opt.showtabline = 2
 
 vim.cmd 'set wildmenu'
+vim.cmd 'set linebreak'
 
 vim.cmd ':autocmd BufNewFile *.c 0r ~/snippets/c'
 
